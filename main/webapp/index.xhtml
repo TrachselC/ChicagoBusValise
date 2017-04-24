@@ -1,0 +1,154 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="css/default.css"/>
+        <h:outputStylesheet name="css/cssLayout.css"/>
+        <!-- Map sctipts -->
+        <h:outputScript target="body" library="js" name="GeoLocalisation.js"/>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAuN4_01fBL-uWk__5MzkmvyMbJksIt8as"></script>  
+        <title>Facelets Template</title>
+        <f:metadata>
+            <f:viewAction action="#{chicagoBusBean.init()}"/>
+        </f:metadata>
+    </h:head>
+
+    <h:body>
+
+        <div id="top">
+            <ui:insert name="top">Chicago Bus</ui:insert>
+        </div>
+
+        <div id="content" class="center_content">
+            <ui:insert name="content">
+
+
+
+                <div class="section">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="panel panel-primary" >
+
+                                    <div class="panel-body">
+                                        <h:form id="form">
+                                            <p:poll interval="60" listener="#{chicagoBusBean.init()}" update="busTable" />
+                                            <p:outputPanel>     
+                                                <h:dataTable id="busTable" styleClass="busTable" class="table table-hover" value="#{chicagoBusBean.busList}" var="bus">
+                                                    <h:column>
+                                                        <f:facet name="header">Numero</f:facet>
+                                                        <h:outputText value="#{bus.ID}" styleClass="numero"/>
+                                                    </h:column>
+                                                    <h:column>
+                                                        <f:facet name="header">Directions</f:facet>
+                                                        <h:outputText value="#{bus.direction}" styleClass="direction"/>
+                                                    </h:column>
+                                                    <h:column>
+                                                        <f:facet name="header">Latitude</f:facet>
+                                                        <h:outputText value="#{bus.lat.toString()}" styleClass="lat"/>
+                                                    </h:column>
+                                                    <h:column>
+                                                        <f:facet name="header">Longitude</f:facet>
+                                                        <h:outputText value="#{bus.lng.toString()}" styleClass="lng"/>
+                                                    </h:column>
+                                                </h:dataTable>
+                                            </p:outputPanel>
+                                            <hr/>
+                                        </h:form>
+
+                                    </div>
+                                </div>    
+                            </div>
+                            <div class="col-md-6">
+                                <div class="panel panel-primary" >
+
+                                    <div class="panel-body">
+                                        <h:form id="formProbablyBus">
+                                            <p:outputPanel>     
+                                                <h:dataTable id="busTable" styleClass="busTable" class="table table-hover" value="#{chicagoBusBean.busProbablyList}" var="bus">
+                                                    <h:column>
+                                                        <f:facet name="header">Numero</f:facet>
+                                                        <h:outputText value="#{bus.ID}" styleClass="numero"/>
+                                                    </h:column>
+                                                    <h:column>
+                                                        <f:facet name="header">Directions</f:facet>
+                                                        <h:outputText value="#{bus.direction}" styleClass="direction"/>
+                                                    </h:column>
+                                                    <h:column>
+                                                        <f:facet name="header">Latitude</f:facet>
+                                                        <h:outputText value="#{bus.lat.toString()}" styleClass="lat"/>
+                                                    </h:column>
+                                                    <h:column>
+                                                        <f:facet name="header">Longitude</f:facet>
+                                                        <h:outputText value="#{bus.lng.toString()}" styleClass="lng"/>
+                                                    </h:column>
+                                                </h:dataTable>
+                                            </p:outputPanel>
+                                            <hr/>
+                                        </h:form>
+
+                                    </div>
+                                </div>    
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <h:graphicImage class="img-responsive" value="resources/images/line22.jpg" width="20%"/>
+                </div>
+
+                <p>
+                    Bus probable : 
+                    <span id="busProb">#{chicagoBusBean.idBusSelected}</span>
+                </p>
+
+                <p>
+                    Distance arrêt de bus à bus probable : 
+                    
+                </p> 
+
+                <h:form>
+                    <h:outputText id="txt_distance" value="#{chicagoBusBean.distanceBusStop}" />
+                    <p:poll interval="60" listener="#{chicagoBusBean.init}" update="txt_distance" />
+                </h:form>
+
+                <div>
+
+
+
+                    <div class="section">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div id="map" style="height:500px">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <!--EPICEARC-->
+
+
+            </ui:insert>
+        </div>
+
+        <div id="bottom">
+            <ui:insert name="bottom">(c) Chicago Bus</ui:insert>
+        </div>
+
+    </h:body>
+
+</html>
