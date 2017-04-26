@@ -20,7 +20,7 @@
 
         <ui:composition template="/templates/default/main.xhtml">
             <div>
-                <ui:define name="title">Chicago Bus</ui:define>    
+                <ui:define name="top">Chicago Bus</ui:define>    
             </div>
             <div>
                 <ui:define name="content">
@@ -73,11 +73,17 @@
                         
                     </div>
                     <div class="col-md-7">
+                        
+                        <h:outputText value="#{chicagoBusBean.busInformationString()}"/>
+                        <br/>
+                        
+                    </div>
+                    <div class="col-md-5">
+                        
+                    </div>
+                    <div class="col-md-7">
                         <h:graphicImage class="img-responsive" value="resources/images/line22.jpg" width="20%"/>
                     <br/>
-                    </div>
-                    <div class="col-md-3">
-                        
                     </div>
 
                     
@@ -95,6 +101,8 @@
                         </div>
 
                     </div>
+                    
+                    
 
                 </ui:define>
             </div>

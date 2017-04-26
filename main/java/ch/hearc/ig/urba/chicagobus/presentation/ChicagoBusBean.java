@@ -51,7 +51,7 @@ public class ChicagoBusBean {
 
     }
 
-    public void init() throws ParserConfigurationException, SAXException, IOException {
+    public void init() throws ParserConfigurationException, SAXException, IOException, Exception {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         factory.setNamespaceAware(true);
 
@@ -87,7 +87,7 @@ public class ChicagoBusBean {
 
             Element busELng = (Element) busE.getElementsByTagName("lon").item(0);
             bus.setLng(Double.parseDouble(busELng.getTextContent()));
-
+            bus.setState("ALL");
             buses.add(bus);
         }
         return buses;
@@ -111,7 +111,7 @@ public class ChicagoBusBean {
         return response.toString();
     }
 
-    public void getProbablyBus() {
+    public void getProbablyBus() throws Exception {
         // Place dans la liste busProbablyList, les bus qui vont vers le nord, après avoir pasé l'arret.
         for (Bus bus : busList) {
             if ((bus.getDirection().equals("Northbound")) && (bus.getLat() > 41.984982)) {
@@ -120,6 +120,7 @@ public class ChicagoBusBean {
                 Double distanceMile = distanceLat*69/1;
                 
                 bus.setDistance(distanceMile);
+                bus.setState("probably");
                 busProbablyList.add(bus);
             }
         }
@@ -131,22 +132,45 @@ public class ChicagoBusBean {
         }
         Collections.sort(listSorted);
 
-        // Récupère le bus de la liste busProbablyList avec la liste de latitudes triées.
+        // Récupère le bon bus de la liste busProbablyList avec la liste de latitudes triées.
         for (Bus bus : busProbablyList) {
             if (bus.getLat().toString().equals(listSorted.get(0).toString())) {
+                if(idBusSelected != null){
+                    if(bus.getID() == idBusSelected){
+                        
+                    }else{
+                        throw new Exception("Le bus est au dépôt !");
+                    }
+                }
                 idBusSelected = bus.getID(); 
                 
-                bus.setState("Tracked");
-                Double distanceLat = bus.getLat()-41.984982;
+                Double distanceLat = bus.getLat()-41.980262;
                 Double distanceMile = distanceLat*69/1;
                 
                 distanceBusStop = distanceMile;
             }
         }
+        
+        for (Bus bus : busList) {
+            if (bus.getID() == idBusSelected) {
+                bus.setState("TRACKED");
+            }
+            
+        }
     }
     
-    public String busInformation(){
-        
+    public String busInformationString(){
+        for (Bus bus : busList) {
+            if(bus.getState()=="TRACKED"){
+                if(bus.getDirection() == "SOUTHBOUND"){
+                    return "Le bus redescend ...";
+                }else{
+                    return "Le bus va vers le nord. Il reviendra ...";
+                }
+                
+            }
+            
+        }
         return "";
     }
 

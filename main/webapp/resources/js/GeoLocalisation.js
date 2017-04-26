@@ -62,7 +62,7 @@ function refreshMap() {
     var busList = getBusList();
     busList.forEach(function (bus) {
         var busLocation = {lat: Number(bus.lat), lng: Number(bus.lng)};
-        if (bus.numero == $(".goodBus .numero").text()) {
+        if (bus.numero == $(".goodBud .numero").text()) {
             var marker = new google.maps.Marker({
                 position: busLocation,
                 map: map,
@@ -71,7 +71,7 @@ function refreshMap() {
             });
             var distanceLat = bus.lat - 41.984982;
             var distanceMile = distanceLat * 69 / 1;
-            if (distanceMile < 0.3 && bus.direction === 'Southbound' && bus.lat > 41.980262) {
+            if (distanceMile < 0.3 && bus.direction === 'Southbound' && bus.lat > 41.97979) {
                 alert("You should go and catch your suitcase to the bus stop");
             }
         } else {
