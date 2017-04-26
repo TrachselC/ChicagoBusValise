@@ -9,6 +9,7 @@ import ch.hearc.ch.ig.urba.chicagobus.business.Bus;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.io.StringReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -19,6 +20,7 @@ import java.util.Collections;
 import java.util.List;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.view.ViewScoped;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -33,8 +35,8 @@ import org.xml.sax.SAXException;
  * @author chloe.trachsel
  */
 @Named(value = "chicagoBusBean")
-@RequestScoped
-public class ChicagoBusBean {
+@ViewScoped
+public class ChicagoBusBean implements Serializable {
 
     private ArrayList<Bus> busList = new ArrayList<>();
     private ArrayList<Bus> busProbablyList = new ArrayList<>();
@@ -61,10 +63,19 @@ public class ChicagoBusBean {
 
         busList = readXmlDocument();
 
-        if (init) {
-            getProbablyBus();
-            init = false;
-        }
+        getProbablyBus();
+
+    }
+
+    public void update() throws ParserConfigurationException, SAXException, IOException {
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        factory.setNamespaceAware(true);
+
+        DocumentBuilder parser = factory.newDocumentBuilder();
+
+        xmlDocument = (Document) parser.parse(new InputSource(new StringReader(getBusInformation())));
+
+        busList = readXmlDocument();
     }
 
     public ArrayList<Bus> readXmlDocument() {
@@ -88,6 +99,11 @@ public class ChicagoBusBean {
             Element busELng = (Element) busE.getElementsByTagName("lon").item(0);
             bus.setLng(Double.parseDouble(busELng.getTextContent()));
             bus.setState("ALL");
+
+            Double distanceLat = bus.getLat() - 41.984982;
+            Double distanceMile = distanceLat * 69 / 1;
+
+            bus.setDistance(distanceMile);
             buses.add(bus);
         }
         return buses;
@@ -111,14 +127,10 @@ public class ChicagoBusBean {
         return response.toString();
     }
 
- public void getProbablyBus() {
+    public void getProbablyBus() {
         // Place dans la liste busProbablyList, les bus qui vont vers le nord, après avoir pasé l'arret.
         for (Bus bus : busList) {
             if ((bus.getDirection().equals("Northbound")) && (bus.getLat() > 41.984982)) {
-                Double distanceLat = bus.getLat()-41.984982;
-                Double distanceMile = distanceLat*69/1;
-                
-                bus.setDistance(distanceMile);
                 busProbablyList.add(bus);
             }
         }
@@ -133,13 +145,8 @@ public class ChicagoBusBean {
         // Récupère le bus de la liste busProbablyList avec la liste de latitudes triées.
         for (Bus bus : busProbablyList) {
             if (bus.getLat().toString().equals(listSorted.get(0).toString())) {
-                idBusSelected = bus.getID(); 
-                               
-                Double distanceLat = bus.getLat()-41.984982;
-                Double distanceMile = distanceLat*69/1;
-                
-                bus.setDistance(distanceMile);
-                
+                idBusSelected = bus.getID();
+
                 bus.setState("Tracked");
             }
         }

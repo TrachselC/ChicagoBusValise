@@ -33,7 +33,7 @@
 
                                         <div class="panel-body">
                                             <h:form id="form">
-                                                <p:poll interval="60" listener="#{chicagoBusBean.init()}" update="busTable" />
+                                                <p:poll interval="60" listener="#{chicagoBusBean.update()}" update="busTable" />
                                                 <p:outputPanel>     
                                                     <p:dataTable id="busTable" styleClass="busTable" class="table table-hover" value="#{chicagoBusBean.busList}" var="bus"   rowStyleClass="#{bus.ID == chicagoBusBean.idBusSelected ? 'goodBud' : null}">
                                                         <p:column>
