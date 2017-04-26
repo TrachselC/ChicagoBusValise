@@ -8,11 +8,8 @@
 
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <h:outputStylesheet name="css/default.css"/>
-        <h:outputStylesheet name="css/cssLayout.css"/>
-        <!-- Map sctipts -->
-        <h:outputScript target="body" library="js" name="GeoLocalisation.js"/>
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAuN4_01fBL-uWk__5MzkmvyMbJksIt8as"></script>  
+        <h:outputStylesheet name="/css/default.css"/>
+        <h:outputStylesheet name="/css/cssLayout.css"/>
         <title>Facelets Template</title>
         <f:metadata>
             <f:viewAction action="#{chicagoBusBean.init()}"/>
@@ -31,7 +28,7 @@
                     <div class="section">
                         <div class="container">
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <div class="panel panel-primary" >
 
                                         <div class="panel-body">
@@ -55,6 +52,10 @@
                                                             <f:facet name="header">Longitude</f:facet>
                                                             <h:outputText value="#{bus.lng.toString()}" styleClass="lng"/>
                                                         </p:column>
+                                                        <p:column>
+                                                            <f:facet name="header">Distance</f:facet>
+                                                            <h:outputText value="#{bus.distance.toString()}" styleClass="distance"/>
+                                                        </p:column>
                                                     </p:dataTable>
                                                 </p:outputPanel>
                                                 <hr/>
@@ -63,60 +64,23 @@
                                         </div>
                                     </div>    
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="panel panel-primary" >
-
-                                        <div class="panel-body">
-                                            <h:form id="formProbablyBus">
-                                                <p:outputPanel>     
-                                                    <h:dataTable id="busTable" styleClass="busTable" class="table table-hover" value="#{chicagoBusBean.busProbablyList}" var="bus">
-                                                        <h:column>
-                                                            <f:facet name="header">Numero</f:facet>
-                                                            <h:outputText value="#{bus.ID}" styleClass="numero"/>
-                                                        </h:column>
-                                                        <h:column>
-                                                            <f:facet name="header">Directions</f:facet>
-                                                            <h:outputText value="#{bus.direction}" styleClass="direction"/>
-                                                        </h:column>
-                                                        <h:column>
-                                                            <f:facet name="header">Latitude</f:facet>
-                                                            <h:outputText value="#{bus.lat.toString()}" styleClass="lat"/>
-                                                        </h:column>
-                                                        <h:column>
-                                                            <f:facet name="header">Longitude</f:facet>
-                                                            <h:outputText value="#{bus.lng.toString()}" styleClass="lng"/>
-                                                        </h:column>
-                                                    </h:dataTable>
-                                                </p:outputPanel>
-                                                <hr/>
-                                            </h:form>
-
-                                        </div>
-                                    </div>    
-                                </div>
+                                
 
                             </div>
                         </div>
                     </div>
-
-                    <div class="col-md-6">
+                    <div class="col-md-5">
+                        
+                    </div>
+                    <div class="col-md-7">
                         <h:graphicImage class="img-responsive" value="resources/images/line22.jpg" width="20%"/>
+                    <br/>
+                    </div>
+                    <div class="col-md-3">
+                        
                     </div>
 
-                    <p>
-                        Bus probable : 
-                        <span id="busProb">#{chicagoBusBean.idBusSelected}</span>
-                    </p>
-
-                    <p>
-                        Distance arrêt de bus à bus probable : 
-                    </p> 
-
-                    <h:form>
-                        <h:outputText id="txt_distance" value="#{chicagoBusBean.distanceBusStop}" />
-                        <p:poll interval="60" listener="#{chicagoBusBean.init}" update="txt_distance" />
-                    </h:form>
-
+                    
                     <div>
                         <div class="section">
                             <div class="container">

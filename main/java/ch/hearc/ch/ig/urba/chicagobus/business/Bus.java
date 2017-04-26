@@ -14,6 +14,7 @@ public class Bus {
     private double lat;
     private double lng;
     private String direction;
+    private double distance;
     private String state;
     
 
@@ -55,6 +56,14 @@ public class Bus {
 
     public void setState(String state) {
         this.state = state;
+    }
+
+    public double getDistance() {
+        return distance;
+    }
+
+    public void setDistance(double distance) {
+        this.distance = distance;
     }
 
     

@@ -115,8 +115,12 @@ public class ChicagoBusBean {
         // Place dans la liste busProbablyList, les bus qui vont vers le nord, après avoir pasé l'arret.
         for (Bus bus : busList) {
             if ((bus.getDirection().equals("Northbound")) && (bus.getLat() > 41.984982)) {
+                
+                Double distanceLat = bus.getLat()-41.984982;
+                Double distanceMile = distanceLat*69/1;
+                
+                bus.setDistance(distanceMile);
                 busProbablyList.add(bus);
-                tracked = true;
             }
         }
 
@@ -132,12 +136,18 @@ public class ChicagoBusBean {
             if (bus.getLat().toString().equals(listSorted.get(0).toString())) {
                 idBusSelected = bus.getID(); 
                 
+                bus.setState("Tracked");
                 Double distanceLat = bus.getLat()-41.984982;
                 Double distanceMile = distanceLat*69/1;
                 
                 distanceBusStop = distanceMile;
             }
         }
+    }
+    
+    public String busInformation(){
+        
+        return "";
     }
 
     public List<Bus> getBusList() {

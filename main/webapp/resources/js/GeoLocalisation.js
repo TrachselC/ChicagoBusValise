@@ -8,7 +8,7 @@ var markers = [];
  */
 function getBusList() {
     var busList = [];
-    $("#form\\:busTable tr").each(function () {
+    $("#form\\:busTable_data tr").each(function () {
         $this = $(this);
         var bus = {
             numero: jQuery(this).find(".numero").text(),
@@ -28,7 +28,7 @@ function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 41.980262, lng: -87.668452},
         mapTypeId: 'satellite',
-        zoom: 15
+        zoom: 13
     });
 
     var office = {lat: 41.980262, lng: -87.668452};
@@ -46,6 +46,13 @@ function initMap() {
         title: 'Arrêt de bus',
         icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
     });
+    var busStopLugage = {lat:41.97979, lng: -87.668452};
+    var marker = new google.maps.Marker({
+        position: busStopLugage,
+        map: map,
+        title: 'Arrêt de bus bureau',
+        icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
+    })
 
     refreshMap();
 }
@@ -55,7 +62,7 @@ function refreshMap() {
     var busList = getBusList();
     busList.forEach(function (bus) {
         var busLocation = {lat: Number(bus.lat), lng: Number(bus.lng)};
-        if (bus.numero == $("#busProb").text()) {
+        if (bus.numero == $(".goodBus .numero").text()) {
             var marker = new google.maps.Marker({
                 position: busLocation,
                 map: map,
