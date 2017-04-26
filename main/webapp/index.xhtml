@@ -40,24 +40,24 @@
                                         <h:form id="form">
                                             <p:poll interval="60" listener="#{chicagoBusBean.init()}" update="busTable" />
                                             <p:outputPanel>     
-                                                <h:dataTable id="busTable" styleClass="busTable" class="table table-hover" value="#{chicagoBusBean.busList}" var="bus">
-                                                    <h:column>
+                                                <p:dataTable id="busTable" styleClass="busTable" class="table table-hover" value="#{chicagoBusBean.busList}" var="bus"   rowStyleClass="#{bus.ID == chicagoBusBean.idBusSelected ? 'goodBud' : null}">
+                                                    <p:column>
                                                         <f:facet name="header">Numero</f:facet>
                                                         <h:outputText value="#{bus.ID}" styleClass="numero"/>
-                                                    </h:column>
-                                                    <h:column>
+                                                    </p:column>
+                                                    <p:column>
                                                         <f:facet name="header">Directions</f:facet>
                                                         <h:outputText value="#{bus.direction}" styleClass="direction"/>
-                                                    </h:column>
-                                                    <h:column>
+                                                    </p:column>
+                                                    <p:column>
                                                         <f:facet name="header">Latitude</f:facet>
                                                         <h:outputText value="#{bus.lat.toString()}" styleClass="lat"/>
-                                                    </h:column>
-                                                    <h:column>
+                                                    </p:column>
+                                                    <p:column>
                                                         <f:facet name="header">Longitude</f:facet>
                                                         <h:outputText value="#{bus.lng.toString()}" styleClass="lng"/>
-                                                    </h:column>
-                                                </h:dataTable>
+                                                    </p:column>
+                                                </p:dataTable>
                                             </p:outputPanel>
                                             <hr/>
                                         </h:form>

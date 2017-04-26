@@ -42,6 +42,7 @@ public class ChicagoBusBean {
     String idBusSelected;
     boolean init = true;
     private Double distanceBusStop;
+    private Boolean tracked = false;
 
     /**
      * Creates a new instance of ChicagoBusBean
@@ -115,6 +116,7 @@ public class ChicagoBusBean {
         for (Bus bus : busList) {
             if ((bus.getDirection().equals("Northbound")) && (bus.getLat() > 41.984982)) {
                 busProbablyList.add(bus);
+                tracked = true;
             }
         }
 
@@ -130,13 +132,10 @@ public class ChicagoBusBean {
             if (bus.getLat().toString().equals(listSorted.get(0).toString())) {
                 idBusSelected = bus.getID(); 
                 
-                
                 Double distanceLat = bus.getLat()-41.984982;
                 Double distanceMile = distanceLat*69/1;
                 
                 distanceBusStop = distanceMile;
-                //test
-                
             }
         }
     }
@@ -155,6 +154,10 @@ public class ChicagoBusBean {
 
     public Double getDistanceBusStop() {
         return distanceBusStop;
+    }
+
+    public Boolean getTracked() {
+        return tracked;
     }
 
 }

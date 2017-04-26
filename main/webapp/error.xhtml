@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+    </h:head>
+    <h:body>
+        
+        <ui:composition template="/templates/default/main.xhtml">
+            <ui:define name="title">#{msg['error.title']}</ui:define>    
+
+            <ui:define name="content">
+                
+                <div class="section">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h1>#{msg['error.title']}</h1>
+                                
+                                <!-- Parcourt chaque message du facesContact lié à l'ID "errorPage", et les affiche en rouge-->
+                                <ui:repeat value="#{facesContext.getMessageList('errorPage')}" var="currentMessage">
+                                    <p><h:outputText value="#{msg[currentMessage.summary]}" class="error" /></p>
+                                </ui:repeat>
+                                
+                                <br/>
+                                
+                                <h:link class="btn btn-primary btn-large" outcome="index" value="#{msg['confirmation.goHome']}" />
+                                
+                                <h:graphicImage class="img-responsive center-block" value="resources/images/oops.png" />
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                
+            </ui:define>
+        </ui:composition>
+
+    </h:body>
+</html>
+
