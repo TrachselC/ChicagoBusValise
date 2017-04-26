@@ -27,30 +27,6 @@
             <ui:insert name="top"></ui:insert>
         </div>
 
-        <div class="container">
-            <nav class="navbar navbar-default">
-                <div class="container-fluid">
-                    <div class="navbar-header">
-                        <h:link outcome="index" class="navbar-brand">
-                            #{msg['epicearc']}
-                        </h:link>
-                    </div>
-                    <h:link outcome="administrationIndex" class="navbar-brand" style="float : right" rendered="#{request.remoteUser == null}"> 
-                        #{msg['epicearc.administration']}
-                    </h:link>
-                    <h:link outcome="administrationIndex" class="navbar-brand" style="float : right" rendered="#{facesContext.externalContext.isUserInRole('manager') or facesContext.externalContext.isUserInRole('driver')}"> 
-                        #{msg['epicearc.administration.employe']}
-                    </h:link>
-                    <h:link outcome="administrationIndex" class="navbar-brand" style="float : right" rendered="#{facesContext.externalContext.isUserInRole('customer')}"> 
-                        #{msg['epicearc.administration.customer']}
-                    </h:link>
-                    <h:form>
-                        <h:commandLink action="#{authenticationBean.logout}" class="navbar-brand" style="float : right" rendered="#{facesContext.externalContext.remoteUser != null}">#{msg['epicearc.administration.logout']}</h:commandLink>
-                    </h:form>
-                </div>
-            </nav>
-        </div>
-
         <ui:insert name="content"></ui:insert>
 
         <div id="bottom">

@@ -21,14 +21,10 @@
 
     <h:body>
 
-        <div id="top">
-            <ui:insert name="top">Chicago Bus</ui:insert>
-        </div>
+        <ui:composition template="/templates/default/main.xhtml">
+            <ui:define name="title">Chicago Bus</ui:define>    
 
-        <div id="content" class="center_content">
-            <ui:insert name="content">
-
-
+            <ui:define name="content">
 
                 <div class="section">
                     <div class="container">
@@ -112,7 +108,7 @@
 
                 <p>
                     Distance arrêt de bus à bus probable : 
-                    
+
                 </p> 
 
                 <h:form>
@@ -138,16 +134,10 @@
 
                 </div>
 
+            </ui:define>
 
-                <!--EPICEARC-->
+            <ui:define name="bottom">(c) Chicago Bus</ui:define>
 
-
-            </ui:insert>
-        </div>
-
-        <div id="bottom">
-            <ui:insert name="bottom">(c) Chicago Bus</ui:insert>
-        </div>
 
     </h:body>
 
