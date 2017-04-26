@@ -111,16 +111,14 @@ public class ChicagoBusBean {
         return response.toString();
     }
 
-    public void getProbablyBus() throws Exception {
+ public void getProbablyBus() {
         // Place dans la liste busProbablyList, les bus qui vont vers le nord, après avoir pasé l'arret.
         for (Bus bus : busList) {
             if ((bus.getDirection().equals("Northbound")) && (bus.getLat() > 41.984982)) {
-                
                 Double distanceLat = bus.getLat()-41.984982;
                 Double distanceMile = distanceLat*69/1;
                 
                 bus.setDistance(distanceMile);
-                bus.setState("probably");
                 busProbablyList.add(bus);
             }
         }
@@ -132,44 +130,31 @@ public class ChicagoBusBean {
         }
         Collections.sort(listSorted);
 
-        // Récupère le bon bus de la liste busProbablyList avec la liste de latitudes triées.
+        // Récupère le bus de la liste busProbablyList avec la liste de latitudes triées.
         for (Bus bus : busProbablyList) {
             if (bus.getLat().toString().equals(listSorted.get(0).toString())) {
-                if(idBusSelected != null){
-                    if(bus.getID() == idBusSelected){
-                        
-                    }else{
-                        throw new Exception("Le bus est au dépôt !");
-                    }
-                }
                 idBusSelected = bus.getID(); 
-                
-                Double distanceLat = bus.getLat()-41.980262;
+                               
+                Double distanceLat = bus.getLat()-41.984982;
                 Double distanceMile = distanceLat*69/1;
                 
-                distanceBusStop = distanceMile;
+                bus.setDistance(distanceMile);
+                
+                bus.setState("Tracked");
             }
-        }
-        
-        for (Bus bus : busList) {
-            if (bus.getID() == idBusSelected) {
-                bus.setState("TRACKED");
-            }
-            
         }
     }
-    
-    public String busInformationString(){
+
+    public String busInformationString() {
         for (Bus bus : busList) {
-            if(bus.getState()=="TRACKED"){
-                if(bus.getDirection() == "SOUTHBOUND"){
+            if (bus.getState() == "TRACKED") {
+                if (bus.getDirection() == "SOUTHBOUND") {
                     return "Le bus redescend ...";
-                }else{
+                } else {
                     return "Le bus va vers le nord. Il reviendra ...";
                 }
-                
+
             }
-            
         }
         return "";
     }
