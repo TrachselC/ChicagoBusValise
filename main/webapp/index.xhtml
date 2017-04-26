@@ -22,122 +22,122 @@
     <h:body>
 
         <ui:composition template="/templates/default/main.xhtml">
-            <ui:define name="title">Chicago Bus</ui:define>    
-
-            <ui:define name="content">
-
-                <div class="section">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="panel panel-primary" >
-
-                                    <div class="panel-body">
-                                        <h:form id="form">
-                                            <p:poll interval="60" listener="#{chicagoBusBean.init()}" update="busTable" />
-                                            <p:outputPanel>     
-                                                <p:dataTable id="busTable" styleClass="busTable" class="table table-hover" value="#{chicagoBusBean.busList}" var="bus"   rowStyleClass="#{bus.ID == chicagoBusBean.idBusSelected ? 'goodBud' : null}">
-                                                    <p:column>
-                                                        <f:facet name="header">Numero</f:facet>
-                                                        <h:outputText value="#{bus.ID}" styleClass="numero"/>
-                                                    </p:column>
-                                                    <p:column>
-                                                        <f:facet name="header">Directions</f:facet>
-                                                        <h:outputText value="#{bus.direction}" styleClass="direction"/>
-                                                    </p:column>
-                                                    <p:column>
-                                                        <f:facet name="header">Latitude</f:facet>
-                                                        <h:outputText value="#{bus.lat.toString()}" styleClass="lat"/>
-                                                    </p:column>
-                                                    <p:column>
-                                                        <f:facet name="header">Longitude</f:facet>
-                                                        <h:outputText value="#{bus.lng.toString()}" styleClass="lng"/>
-                                                    </p:column>
-                                                </p:dataTable>
-                                            </p:outputPanel>
-                                            <hr/>
-                                        </h:form>
-
-                                    </div>
-                                </div>    
-                            </div>
-                            <div class="col-md-6">
-                                <div class="panel panel-primary" >
-
-                                    <div class="panel-body">
-                                        <h:form id="formProbablyBus">
-                                            <p:outputPanel>     
-                                                <h:dataTable id="busTable" styleClass="busTable" class="table table-hover" value="#{chicagoBusBean.busProbablyList}" var="bus">
-                                                    <h:column>
-                                                        <f:facet name="header">Numero</f:facet>
-                                                        <h:outputText value="#{bus.ID}" styleClass="numero"/>
-                                                    </h:column>
-                                                    <h:column>
-                                                        <f:facet name="header">Directions</f:facet>
-                                                        <h:outputText value="#{bus.direction}" styleClass="direction"/>
-                                                    </h:column>
-                                                    <h:column>
-                                                        <f:facet name="header">Latitude</f:facet>
-                                                        <h:outputText value="#{bus.lat.toString()}" styleClass="lat"/>
-                                                    </h:column>
-                                                    <h:column>
-                                                        <f:facet name="header">Longitude</f:facet>
-                                                        <h:outputText value="#{bus.lng.toString()}" styleClass="lng"/>
-                                                    </h:column>
-                                                </h:dataTable>
-                                            </p:outputPanel>
-                                            <hr/>
-                                        </h:form>
-
-                                    </div>
-                                </div>    
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6">
-                    <h:graphicImage class="img-responsive" value="resources/images/line22.jpg" width="20%"/>
-                </div>
-
-                <p>
-                    Bus probable : 
-                    <span id="busProb">#{chicagoBusBean.idBusSelected}</span>
-                </p>
-
-                <p>
-                    Distance arrêt de bus à bus probable : 
-
-                </p> 
-
-                <h:form>
-                    <h:outputText id="txt_distance" value="#{chicagoBusBean.distanceBusStop}" />
-                    <p:poll interval="60" listener="#{chicagoBusBean.init}" update="txt_distance" />
-                </h:form>
-
-                <div>
-
-
+            <div>
+                <ui:define name="title">Chicago Bus</ui:define>    
+            </div>
+            <div>
+                <ui:define name="content">
 
                     <div class="section">
                         <div class="container">
                             <div class="row">
-                                <div class="col-md-12">
-                                    <div id="map" style="height:500px">
+                                <div class="col-md-6">
+                                    <div class="panel panel-primary" >
 
-                                    </div>
+                                        <div class="panel-body">
+                                            <h:form id="form">
+                                                <p:poll interval="60" listener="#{chicagoBusBean.init()}" update="busTable" />
+                                                <p:outputPanel>     
+                                                    <p:dataTable id="busTable" styleClass="busTable" class="table table-hover" value="#{chicagoBusBean.busList}" var="bus"   rowStyleClass="#{bus.ID == chicagoBusBean.idBusSelected ? 'goodBud' : null}">
+                                                        <p:column>
+                                                            <f:facet name="header">Numero</f:facet>
+                                                            <h:outputText value="#{bus.ID}" styleClass="numero"/>
+                                                        </p:column>
+                                                        <p:column>
+                                                            <f:facet name="header">Directions</f:facet>
+                                                            <h:outputText value="#{bus.direction}" styleClass="direction"/>
+                                                        </p:column>
+                                                        <p:column>
+                                                            <f:facet name="header">Latitude</f:facet>
+                                                            <h:outputText value="#{bus.lat.toString()}" styleClass="lat"/>
+                                                        </p:column>
+                                                        <p:column>
+                                                            <f:facet name="header">Longitude</f:facet>
+                                                            <h:outputText value="#{bus.lng.toString()}" styleClass="lng"/>
+                                                        </p:column>
+                                                    </p:dataTable>
+                                                </p:outputPanel>
+                                                <hr/>
+                                            </h:form>
+
+                                        </div>
+                                    </div>    
                                 </div>
+                                <div class="col-md-6">
+                                    <div class="panel panel-primary" >
+
+                                        <div class="panel-body">
+                                            <h:form id="formProbablyBus">
+                                                <p:outputPanel>     
+                                                    <h:dataTable id="busTable" styleClass="busTable" class="table table-hover" value="#{chicagoBusBean.busProbablyList}" var="bus">
+                                                        <h:column>
+                                                            <f:facet name="header">Numero</f:facet>
+                                                            <h:outputText value="#{bus.ID}" styleClass="numero"/>
+                                                        </h:column>
+                                                        <h:column>
+                                                            <f:facet name="header">Directions</f:facet>
+                                                            <h:outputText value="#{bus.direction}" styleClass="direction"/>
+                                                        </h:column>
+                                                        <h:column>
+                                                            <f:facet name="header">Latitude</f:facet>
+                                                            <h:outputText value="#{bus.lat.toString()}" styleClass="lat"/>
+                                                        </h:column>
+                                                        <h:column>
+                                                            <f:facet name="header">Longitude</f:facet>
+                                                            <h:outputText value="#{bus.lng.toString()}" styleClass="lng"/>
+                                                        </h:column>
+                                                    </h:dataTable>
+                                                </p:outputPanel>
+                                                <hr/>
+                                            </h:form>
+
+                                        </div>
+                                    </div>    
+                                </div>
+
                             </div>
                         </div>
                     </div>
 
-                </div>
+                    <div class="col-md-6">
+                        <h:graphicImage class="img-responsive" value="resources/images/line22.jpg" width="20%"/>
+                    </div>
 
-            </ui:define>
+                    <p>
+                        Bus probable : 
+                        <span id="busProb">#{chicagoBusBean.idBusSelected}</span>
+                    </p>
 
-            <ui:define name="bottom">(c) Chicago Bus</ui:define>
+                    <p>
+                        Distance arrêt de bus à bus probable : 
+                    </p> 
 
+                    <h:form>
+                        <h:outputText id="txt_distance" value="#{chicagoBusBean.distanceBusStop}" />
+                        <p:poll interval="60" listener="#{chicagoBusBean.init}" update="txt_distance" />
+                    </h:form>
+
+                    <div>
+                        <div class="section">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div id="map" style="height:500px">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </ui:define>
+            </div>
+            <div>
+                <ui:define name="bottom"></ui:define>
+            </div> 
+        </ui:composition>
 
     </h:body>
 
